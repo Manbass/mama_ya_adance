@@ -64,9 +64,10 @@ namespace ship {
         float num = 0;
         float num2 = 0;
         float tug = 0;
-        vector<char> arr(200, false);
+        vector<char> arr(288, false);
         for (int i = 0; i < str1.size(); ++i) {
-            if (arr[(int)str1[i]]) {
+            int lol = (int)str1[i];
+            if (arr[(int)str1[i] + 32]) {
                 num++;
                 continue;
             }
@@ -159,7 +160,9 @@ namespace ship {
     vector<pair<string, int>> find(const string str, vector<vector<string>>& strs, const int norm) {
         vector<pair<string, int>> fins;
         int cur_norm = (str.size() / 10 + 1) * norm;
-        for (int i = str.size() - cur_norm; i < str.size() + cur_norm; ++i) {
+        int piter = str.size() - cur_norm;
+        piter = max(piter, 0);
+        for (int i = piter; i < str.size() + cur_norm; ++i) {
             for (int j = 0; j < strs[i].size(); ++j) {
                 int numb = Dam_Lev(str, strs[i][j], cur_norm);
                 if (numb == -1) continue;
@@ -206,6 +209,9 @@ namespace ship {
                     }
                 }
             }
+            else {
+                return false;
+            }
         }
         return true;
     }
@@ -231,13 +237,13 @@ namespace ship {
 		return string(ptr);
 	}
 	/// <summary>
-	/// Сводка для MyForm
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
 	///
-	/// Внимание! При изменении имени этого класса необходимо также изменить
-	///          свойство имени файла ресурсов ("Resource File Name") для средства компиляции управляемого ресурса,
-	///          связанного со всеми файлами с расширением .resx, от которых зависит данный класс. В противном случае,
-	///          конструкторы не смогут правильно работать с локализованными
-	///          ресурсами, сопоставленными данной форме.
+	/// Р’РЅРёРјР°РЅРёРµ! РџСЂРё РёР·РјРµРЅРµРЅРёРё РёРјРµРЅРё СЌС‚РѕРіРѕ РєР»Р°СЃСЃР° РЅРµРѕР±С…РѕРґРёРјРѕ С‚Р°РєР¶Рµ РёР·РјРµРЅРёС‚СЊ
+	///          СЃРІРѕР№СЃС‚РІРѕ РёРјРµРЅРё С„Р°Р№Р»Р° СЂРµСЃСѓСЂСЃРѕРІ ("Resource File Name") РґР»СЏ СЃСЂРµРґСЃС‚РІР° РєРѕРјРїРёР»СЏС†РёРё СѓРїСЂР°РІР»СЏРµРјРѕРіРѕ СЂРµСЃСѓСЂСЃР°,
+	///          СЃРІСЏР·Р°РЅРЅРѕРіРѕ СЃРѕ РІСЃРµРјРё С„Р°Р№Р»Р°РјРё СЃ СЂР°СЃС€РёСЂРµРЅРёРµРј .resx, РѕС‚ РєРѕС‚РѕСЂС‹С… Р·Р°РІРёСЃРёС‚ РґР°РЅРЅС‹Р№ РєР»Р°СЃСЃ. Р’ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ,
+	///          РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ РЅРµ СЃРјРѕРіСѓС‚ РїСЂР°РІРёР»СЊРЅРѕ СЂР°Р±РѕС‚Р°С‚СЊ СЃ Р»РѕРєР°Р»РёР·РѕРІР°РЅРЅС‹РјРё
+	///          СЂРµСЃСѓСЂСЃР°РјРё, СЃРѕРїРѕСЃС‚Р°РІР»РµРЅРЅС‹РјРё РґР°РЅРЅРѕР№ С„РѕСЂРјРµ.
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -269,13 +275,13 @@ namespace ship {
 			unpause = true;
 			//ch = new Chess;
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm()
 		{
@@ -319,14 +325,14 @@ namespace ship {
 
 	private:
 		/// <summary>
-		/// Требуется переменная конструктора.
+		/// РўСЂРµР±СѓРµС‚СЃСЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Обязательный метод для поддержки конструктора - не изменяйте
-		/// содержимое данного метода при помощи редактора кода.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° - РЅРµ РёР·РјРµРЅСЏР№С‚Рµ
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ РґР°РЅРЅРѕРіРѕ РјРµС‚РѕРґР° РїСЂРё РїРѕРјРѕС‰Рё СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -366,10 +372,6 @@ namespace ship {
             this->richTextBox2->Size = System::Drawing::Size(398, 503);
             this->richTextBox2->TabIndex = 1;
             this->richTextBox2->Text = L"";
-            // 
-            // openFileDialog1
-            // 
-            this->openFileDialog1->FileName = L"openFileDialog1";
             // 
             // button1
             // 
@@ -425,7 +427,7 @@ namespace ship {
             this->richTextBox6->Name = L"richTextBox6";
             this->richTextBox6->Size = System::Drawing::Size(515, 22);
             this->richTextBox6->TabIndex = 7;
-            this->richTextBox6->Text = L"Введите строку для сравнения в поле ниже либо загрузите из файла";
+            this->richTextBox6->Text = L"Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ РІ РїРѕР»Рµ РЅРёР¶Рµ Р»РёР±Рѕ Р·Р°РіСЂСѓР·РёС‚Рµ РёР· С„Р°Р№Р»Р°";
             this->richTextBox6->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox6_TextChanged);
             // 
             // richTextBox7
@@ -435,14 +437,14 @@ namespace ship {
             this->richTextBox7->Name = L"richTextBox7";
             this->richTextBox7->Size = System::Drawing::Size(515, 34);
             this->richTextBox7->TabIndex = 8;
-            this->richTextBox7->Text = L"Поле ниже характеризует количество допустимых \'ошибок\' на десять символов (уровен"
-                L"ь минимальной необходимой похожести)";
+            this->richTextBox7->Text = L"РџРѕР»Рµ РЅРёР¶Рµ С…Р°СЂР°РєС‚РµСЂРёР·СѓРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРїСѓСЃС‚РёРјС‹С… \'РѕС€РёР±РѕРє\' РЅР° РґРµСЃСЏС‚СЊ СЃРёРјРІРѕР»РѕРІ (СѓСЂРѕРІРµРЅ"
+                L"СЊ РјРёРЅРёРјР°Р»СЊРЅРѕР№ РЅРµРѕР±С…РѕРґРёРјРѕР№ РїРѕС…РѕР¶РµСЃС‚Рё)";
             this->richTextBox7->TextChanged += gcnew System::EventHandler(this, &MyForm::richTextBox7_TextChanged);
             // 
             // numericUpDown1
             // 
             this->numericUpDown1->Location = System::Drawing::Point(36, 276);
-            this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 0 });
+            this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10, 0, 0, 0 });
             this->numericUpDown1->Name = L"numericUpDown1";
             this->numericUpDown1->Size = System::Drawing::Size(120, 20);
             this->numericUpDown1->TabIndex = 9;
@@ -479,7 +481,7 @@ namespace ship {
             this->Margin = System::Windows::Forms::Padding(2);
             this->MaximizeBox = false;
             this->Name = L"MyForm";
-            this->Text = L"Сравнение строк";
+            this->Text = L"РЎСЂР°РІРЅРµРЅРёРµ СЃС‚СЂРѕРє";
             this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
             this->ResumeLayout(false);
@@ -536,7 +538,9 @@ namespace ship {
                      {
                          System::IO::StreamReader ^ sr = gcnew
                              System::IO::StreamReader(openFileDialog1->FileName);
-                         richTextBox1->Text = sr->ReadToEnd();
+                         sr->CurrentEncoding->UTF32;
+                         String ^ strt = sr->ReadToEnd();
+                         richTextBox1->Text = strt;
                          sr->Close();
                      }
                  }
@@ -549,7 +553,7 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
     vector<pair<string, int>> arr = find(str, strs, norm);
     vector<pair<string, int>> warr = find(str, wstrs, norm);
   
-    if (chek_str(str, eng_dict)) {
+    if (str.size() > 0 && chek_str(str, eng_dict)) {
         if (arr.size() == 0 || arr[0].second != 0) {
             strs[str.size() - 1].push_back(str);
             out_lib << str << endl;
@@ -557,7 +561,7 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
         }
     }
     else {
-        if (warr.size() == 0 || warr[0].second != 0) {
+        if (str.size() > 0 && (warr.size() == 0 || warr[0].second != 0)) {
             wstrs[str.size() - 1].push_back(str);
             out_wlib << str << endl;
             num_of_strings++;
